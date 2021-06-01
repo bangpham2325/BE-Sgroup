@@ -15,7 +15,7 @@ async function connect(){
             {
                 id:1,
                 title: "Jennie",
-                slug: "jennie_xinhgai",
+                slug: "jennie_xinh_gai",
                 url: 'https://tutorialzine.com/2016/03/what-you-need-to-know-about-css-variables/',
                 src: 'https://vcdn-giaitri.vnecdn.net/2021/02/24/j-4353-1614154422.jpg',
                 content:'Web applications become more and more powerful every year, but there is still room for desktop apps with full access to the hardware of your computer. Today you can create desktop apps using the already familiar HTML, JS and Node.js, then package it into an executable file and distribute it accordingly across Windows, OS X and Linux.'

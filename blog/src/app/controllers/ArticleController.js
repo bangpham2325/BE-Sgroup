@@ -26,6 +26,22 @@ class ArticleController {
 
        })
     }
+     //get/article/id/edit
+    edit(rep,res,next){
+        Article.findOne({title:rep.params.id})
+        .then(article =>res.render('edit', {
+            article
+        }))
+        .catch(next)
+        
+        
+    }
+    //[put]artircle/title
+    update(rep,res,next){
+        Article.updateOne({title: rep.params.slug},rep.body)
+        .then(()=>res.redirect("/home"))
+        .catch(next)
+    }
 }
 //tao 1 the hien cua newcontroller
 module.exports =new ArticleController;

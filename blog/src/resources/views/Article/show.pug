@@ -7,6 +7,9 @@ block content
                 .col-lg-4
                         button hello Anh Phu  
                         p baitap kho qua di anh Phu oi
+                        .row
+                            <a type="a" href="http://localhost:3000/articles/#{article.title}/edit" class="btn btn-primary">Update</>
+                            <a type="a" href="/create/#{article._id}/delete" class="btn btn-danger">Delete</a>
                 .col-lg-8
                     .card(style='width: 18rem;')
                         img.card-img-top(src=`${article.src}` alt='...')

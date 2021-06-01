@@ -3,6 +3,7 @@ const pug = require('pug');
 const path = require('path')
 const route = require('./routes')
 const db = require('./config/database');
+var methodOverride = require('method-override')
 
 //connect db
 db.connect();
@@ -17,6 +18,7 @@ app.set('view engine', 'pug')
 app.get('/user/:id', function (req, res, next) {
   res.send('USER')
 })
+app.use(methodOverride('_method'))
 route(app);
 
 app.listen(port, () => {
