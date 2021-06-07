@@ -10,6 +10,7 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
         li.nav-item
           a.nav-link(href='http://localhost:3000/articles/create') Create Article
        
-      form.d-flex
-        input.form-control.me-2(type='search' placeholder='Search' aria-label='Search')
+      form.d-flex(method="post")
+        input.form-control.me-2(type='search' name="q" placeholder='Search' aria-label='Search')
         button.btn.btn-outline-success(type='submit') Search
+      

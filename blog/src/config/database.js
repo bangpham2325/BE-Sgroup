@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt')
 const ArticleModel=require('../app/models/article');
+const UserModel =require('../app/models/user');
+const { DB_CONNECTION } = require("../env");
 async function connect(){
     try {
+        const DEFAULT_PWD = bcrypt.hashSync('123456', 10);
         await mongoose.connect('mongodb://localhost:27017/Article', {
             useNewUrlParser: true,
             useUnifiedTopology: true,
@@ -9,7 +13,19 @@ async function connect(){
             useCreateIndex: true
         });
          console.log('connect to mongodb')
-
+         await UserModel.deleteMany();
+         await UserModel.insertMany([
+             {
+                 id:12,
+                 username: 'bangpham@gmail.com',
+                 password: DEFAULT_PWD
+             },
+             {
+                id:13,
+                 username: 'bang@gmail.com',
+                 password: DEFAULT_PWD
+             }
+         ]);
          await ArticleModel.deleteMany();
          await ArticleModel.insertMany([
             {

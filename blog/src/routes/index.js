@@ -1,9 +1,12 @@
 const newsRouter = require('./news');
 const articleRouter = require('./article');
 const siteRouter = require('./site');
+const AuthRouter = require('./Auth');
+//const authMidderware = require('../middleware/auth.middleware');
 function route(app){
     
       app.use('/news',newsRouter);
+      app.use('/auth',AuthRouter);
       app.use('/articles',articleRouter);
       //app.get('/news', (req, res) => {
       //  res.render('news')
