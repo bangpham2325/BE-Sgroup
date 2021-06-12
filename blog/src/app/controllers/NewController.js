@@ -1,21 +1,17 @@
-const SessionModel = require('../models/session')
-class NewController {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var NewController = /** @class */ (function () {
+    function NewController() {
+    }
     //[get]/news
-    index(rep,res){
+    NewController.prototype.index = function (req, res) {
         res.render('news');
-    }
+    };
     //[get]/new/:slug
-    show(rep,res){
+    NewController.prototype.show = function (req, res) {
         res.send("new detail!!!");
-    }
-    // showSession(rep,res,next){
-    //     SessionModel.find({})
-    //     .then(session =>res.render('session', {
-    //         session
-    //     }))
-    //     .catch(next)
-    // }
-}
-
+    };
+    return NewController;
+}());
 //tao 1 the hien cua newcontroller
-module.exports =new NewController;
+exports.default = new NewController;

@@ -1,10 +1,12 @@
-const express = require('express');
-const router = express.Router();
-const  siteController = require('../app/controllers/SiteController');
-
-const authMidderware = require('../middleware/auth.middleware');
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = __importDefault(require("express"));
+var SiteController_1 = __importDefault(require("../app/controllers/SiteController"));
+var router = express_1.default.Router();
 //newController.index
-router.use('/home',authMidderware.authRequired,siteController.home)
-router.use('/search',siteController.search);
-
-module.exports = router
+router.get('/home', SiteController_1.default.home);
+router.get('/search', SiteController_1.default.search);
+exports.default = router;

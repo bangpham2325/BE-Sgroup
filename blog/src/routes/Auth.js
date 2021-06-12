@@ -1,10 +1,13 @@
-const express = require('express');
-const router = express.Router();
-const  AuthController = require('../app/controllers/AuthController');
-const authMidderWare = require('../middleware/auth.middleware');
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = __importDefault(require("express"));
+var AuthController_1 = __importDefault(require("../app/controllers/AuthController"));
+var router = express_1.default.Router();
 //newController.index
-router.get('/login',AuthController.logout);
-router.post('/login',AuthController.postLogin);
-router.use('/',authMidderWare.authNotRequired,AuthController.login);
-
-module.exports = router
+router.get('/login', AuthController_1.default.logout);
+router.post('/login', AuthController_1.default.postLogin);
+router.get('/', AuthController_1.default.login);
+exports.default = router;

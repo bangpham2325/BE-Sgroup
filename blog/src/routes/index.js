@@ -1,24 +1,16 @@
-const newsRouter = require('./news');
-const articleRouter = require('./article');
-const siteRouter = require('./site');
-const AuthRouter = require('./Auth');
-//const authMidderware = require('../middleware/auth.middleware');
-function route(app){
-    
-      app.use('/news',newsRouter);
-      app.use('/auth',AuthRouter);
-      app.use('/articles',articleRouter);
-      //app.get('/news', (req, res) => {
-      //  res.render('news')
-      //})
-      // Action ---> Dispatcher -- Function handler
-    //   app.get('/search', (req, res) => {
-    //     res.render('search')
-    //   })
-    // app.get('/', (req, res) => {
-    //     res.render('home')
-    //   })
-    app.use('/',siteRouter);
-      
-}
-module.exports = route;
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var news_1 = __importDefault(require("./news"));
+var article_1 = __importDefault(require("./article"));
+var site_1 = __importDefault(require("./site"));
+var Auth_1 = __importDefault(require("./Auth"));
+var express_1 = __importDefault(require("express"));
+var router = express_1.default.Router();
+router.use('/news', news_1.default);
+router.use('/auth', Auth_1.default);
+router.use('/articles', article_1.default);
+router.use('/', site_1.default);
+exports.default = router;

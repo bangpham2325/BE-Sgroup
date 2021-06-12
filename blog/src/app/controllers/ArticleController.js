@@ -1,47 +1,48 @@
-const Article = require('../models/article');
-class ArticleController {
-    
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var article_1 = __importDefault(require("../models/article"));
+var ArticleController = /** @class */ (function () {
+    function ArticleController() {
+    }
     //[get]/show
-    show(rep,res,next){
-        
-        Article.findOne({title:rep.params.slug})
-        .then(article =>res.render('Article/show', {
-            article
-        }))
-        .catch(next)
-        
-    }
+    ArticleController.prototype.show = function (req, res, next) {
+        article_1.default.findOne({ title: req.params.slug })
+            .then(function (article) { return res.render('Article/show', {
+            article: article
+        }); })
+            .catch(next);
+    };
     //get/article/create
-    create(rep,res){
+    ArticleController.prototype.create = function (req, res, next) {
         res.render('create');
-        
-    }
+    };
     //post/articles/store
-    store(req,res){
-       const formData = req.body;
-       const article = new Article(formData);
-       article.save()
-       .then(()=>res.redirect('/home'))
-       .catch(error =>{
-
-       })
-    }
-     //get/article/id/edit
-    edit(rep,res,next){
-        Article.findOne({title:rep.params.id})
-        .then(article =>res.render('edit', {
-            article
-        }))
-        .catch(next)
-        
-        
-    }
+    ArticleController.prototype.store = function (req, res, next) {
+        var formData = req.body;
+        var article = new article_1.default(formData);
+        article.save()
+            .then(function () { return res.redirect('/home'); })
+            .catch(function (error) {
+        });
+    };
+    //get/article/id/edit
+    ArticleController.prototype.edit = function (req, res, next) {
+        article_1.default.findOne({ title: req.params.id })
+            .then(function (article) { return res.render('edit', {
+            article: article
+        }); })
+            .catch(next);
+    };
     //[put]artircle/title
-    update(rep,res,next){
-        Article.updateOne({title: rep.params.slug},rep.body)
-        .then(()=>res.redirect("/home"))
-        .catch(next)
-    }
-}
+    ArticleController.prototype.update = function (req, res, next) {
+        article_1.default.updateOne({ title: req.params.slug }, req.body)
+            .then(function () { return res.redirect("/home"); })
+            .catch(next);
+    };
+    return ArticleController;
+}());
 //tao 1 the hien cua newcontroller
-module.exports =new ArticleController;
+exports.default = new ArticleController;

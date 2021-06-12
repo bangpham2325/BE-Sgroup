@@ -1,16 +1,12 @@
-const express = require('express');
-const router = express.Router();
-const  newsController = require('../app/controllers/NewController');
-
-
-
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = __importDefault(require("express"));
+var NewController_1 = __importDefault(require("../app/controllers/NewController"));
+var router = express_1.default.Router();
 //newController.index
-router.get('/cookie',function(req,res,next){
-    res.cookie('user_id',12345);
-    res.send('hello');
-})
-
-router.use('/:slug',newsController.show)
-router.use('/',newsController.index);
-
- module.exports = router
+router.get('/:slug', NewController_1.default.show);
+router.get('/', NewController_1.default.index);
+exports.default = router;
