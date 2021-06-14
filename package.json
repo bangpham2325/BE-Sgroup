@@ -2,7 +2,7 @@
   "name": "bang",
   "version": "1.0.0",
   "description": "",
-  "main": "build/blog/src/index.js",
+  "main": "index.js",
   "scripts": {
     "start": "node build/blog/src/index.js",
     "build:start": "npm run build && node build/blog/src/index.js",
