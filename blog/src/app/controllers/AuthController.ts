@@ -8,7 +8,7 @@ class AuthController {
         console.log(req.cookies)
         res.render('login');
     }
-    async postLogin(req: Request, res: Response, next: NextFunction){
+    getLogin = async (req: Request, res: Response, next: NextFunction) => {
         // const user = UserModel.findOne({
         //     username: req.body.email
         // });
@@ -46,7 +46,7 @@ class AuthController {
           //res.redirect("/home");
        
     }
-    async logout(req: Request, res: Response, next: NextFunction){
+    logout = async(req: Request, res: Response, next: NextFunction)=>{
      
             const {userId: sessionId } = req.signedCookies;
             console.log("hellooooooo"+sessionId);

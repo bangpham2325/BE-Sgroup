@@ -6,19 +6,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var article_1 = __importDefault(require("../models/article"));
 var ArticleController = /** @class */ (function () {
     function ArticleController() {
+        //[get]/show
+        this.show = function (req, res, next) {
+            article_1.default.findOne({ title: req.params.slug })
+                .then(function (article) { return res.render('Article/show', {
+                article: article
+            }); })
+                .catch(next);
+        };
+        //get/article/create
+        this.create = function (req, res, next) {
+            res.render('create');
+        };
     }
-    //[get]/show
-    ArticleController.prototype.show = function (req, res, next) {
-        article_1.default.findOne({ title: req.params.slug })
-            .then(function (article) { return res.render('Article/show', {
-            article: article
-        }); })
-            .catch(next);
-    };
-    //get/article/create
-    ArticleController.prototype.create = function (req, res, next) {
-        res.render('create');
-    };
     //post/articles/store
     ArticleController.prototype.store = function (req, res, next) {
         var formData = req.body;

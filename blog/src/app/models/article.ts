@@ -1,4 +1,4 @@
-import { model, Schema } from 'mongoose';
+import {model, Schema } from 'mongoose';
 const ArticleSchema = new Schema({
     title:String,
     url:String,

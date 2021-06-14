@@ -1,0 +1,21 @@
+extends ../main.pug
+
+block content
+    h3 #{article.title} cua blackpink
+        .mt-3
+            .row 
+                .col-lg-4
+                        button hello Anh Phu  
+                        p baitap kho qua di anh Phu oi
+                        .row
+                            <a type="a" href="http://localhost:3000/articles/#{article.title}/edit" class="btn btn-primary">Update</>
+                            <a type="a" href="/create/#{article._id}/delete" class="btn btn-danger">Delete</a>
+                .col-lg-8
+                    .card(style='width: 18rem;')
+                        img.card-img-top(src=`${article.src}` alt='...')
+                    .card-body
+                        h5.card-title #{article.title}
+                        p.card-text
+                        | Some quick example text to build on the card title and make up the bulk of the card&apos;s content.
+                       
+                

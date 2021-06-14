@@ -4,7 +4,7 @@ import { NextFunction, Request, Response } from "express";
 class ArticleController {
     
     //[get]/show
-    show(req: Request, res: Response, next: NextFunction){
+    show =(req: Request, res: Response, next: NextFunction)=>{
         
         Article.findOne({title:req.params.slug})
         .then((article : any) =>res.render('Article/show', {
@@ -14,7 +14,7 @@ class ArticleController {
         
     }
     //get/article/create
-    create(req: Request, res: Response, next: NextFunction){
+    create = (req: Request, res: Response, next: NextFunction) => {
         res.render('create');
         
     }

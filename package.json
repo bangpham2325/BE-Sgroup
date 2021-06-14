@@ -2,10 +2,10 @@
   "name": "bang",
   "version": "1.0.0",
   "description": "",
-  "main": "blog/src/index.js",
+  "main": "build/blog/src/index.js",
   "scripts": {
-    "start": "node build/index.js",
-    "build:start": "npm run build && node build/index.js",
+    "start": "node build/blog/src/index.js",
+    "build:start": "npm run build && node build/blog/src/index.js",
     "build": "rm -rf ./build && tsc",
     "dev": "nodemon"
   },

@@ -1,6 +1,14 @@
 import {model, Schema} from 'mongoose';
-
-const SessionSchema = new Schema({
+interface ISecctionSchema{
+    user:{
+        _id:String,
+        username : String,
+    }
+    lock: {
+        type: Boolean
+    }
+}
+const SessionSchema = new Schema<ISecctionSchema>({
     user: {
         _id: String,
         username: String

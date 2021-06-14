@@ -41,14 +41,8 @@ var SessionModel = require('../models/session');
 var bcrypt = require('bcrypt');
 var AuthController = /** @class */ (function () {
     function AuthController() {
-    }
-    //[get]/login
-    AuthController.prototype.login = function (req, res, next) {
-        console.log(req.cookies);
-        res.render('login');
-    };
-    AuthController.prototype.postLogin = function (req, res, next) {
-        return __awaiter(this, void 0, void 0, function () {
+        var _this = this;
+        this.getLogin = function (req, res, next) { return __awaiter(_this, void 0, void 0, function () {
             var user, currentUserSession, userInfomation, session;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -85,10 +79,8 @@ var AuthController = /** @class */ (function () {
                         return [2 /*return*/];
                 }
             });
-        });
-    };
-    AuthController.prototype.logout = function (req, res, next) {
-        return __awaiter(this, void 0, void 0, function () {
+        }); };
+        this.logout = function (req, res, next) { return __awaiter(_this, void 0, void 0, function () {
             var sessionId;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -108,7 +100,12 @@ var AuthController = /** @class */ (function () {
                     case 2: return [2 /*return*/, res.redirect("/auth")];
                 }
             });
-        });
+        }); };
+    }
+    //[get]/login
+    AuthController.prototype.login = function (req, res, next) {
+        console.log(req.cookies);
+        res.render('login');
     };
     return AuthController;
 }());
