@@ -8,4 +8,4 @@ const UserSchema = new Schema<IUserSchema,any>({
     password: String,
 });
 const UserModel = model('users', UserSchema);
-export default UserModel;
+module.exports = UserModel;

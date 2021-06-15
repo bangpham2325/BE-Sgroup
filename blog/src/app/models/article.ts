@@ -8,4 +8,4 @@ const ArticleSchema = new Schema({
 
 const ArticleModel = model('articles', ArticleSchema);
 
-export default ArticleModel;
+module.exports = ArticleModel;

@@ -7,7 +7,10 @@ var express_1 = __importDefault(require("express"));
 var AuthController_1 = __importDefault(require("../app/controllers/AuthController"));
 var router = express_1.default.Router();
 //newController.index
-router.get('/login', AuthController_1.default.logout);
-router.post('/login', AuthController_1.default.getLogin);
-router.get('/', AuthController_1.default.login);
+var _a = require("../middleware/auth.middleware"), authRequired = _a.authRequired, authNotRequired = _a.authNotRequired;
+var UserModel = require('../app/models/user');
+var login_validator_1 = require("../validator/login.validator");
+router.post('/login', login_validator_1.validateLogin, AuthController_1.default.getLogin);
+router.get('/login', AuthController_1.default.login);
+router.get('/logout', AuthController_1.default.logout);
 exports.default = router;

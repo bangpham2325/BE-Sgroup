@@ -5,62 +5,63 @@ import { NextFunction, Request, Response } from "express";
 class AuthController {
     //[get]/login
     login(req: Request, res: Response, next: NextFunction){
-        console.log(req.cookies)
+       // console.log(req.cookies)
         res.render('login');
     }
     getLogin = async (req: Request, res: Response, next: NextFunction) => {
-        // const user = UserModel.findOne({
-        //     username: req.body.email
-        // });
-        const user= await UserModel.default.findOne({username: req.body.email})
-        if (!user || !bcrypt.compareSync(req.body.password, user.password)) {
-            res.send("Loi roi");
-            return;
-        }  
-        const currentUserSession = await SessionModel.findOne({
-            'user._id' : user._id, 
+
+      const user = await UserModel.findOne({
+        username: req.body.email,
+      });
+      
+      if (!user || !bcrypt.compareSync(req.body.password, user.password)) {
+        return res.render("error.pug", {
+          error: `Email and Password not found to login`,
         });
-        // if (currentUserSession?.lock) {
-        //     return res.send("da co nguoi dung dang nhap")
-        // }
-          const userInfomation = {
-            _id: user._id,
-            username: user.username,
-          };
-          
-          const session =await SessionModel.create({
-            user: userInfomation,
-            lock: true,
-          });
-          console.log(session)
-        console.log(user)
-        res.cookie("userId", session._id,{
-            httpOnly:true,
-            signed:true,
-            maxAge : 100*1000
-        })
-        res.redirect('/home');
+      }
     
-          
-          
-          //res.redirect("/home");
+      const currentUserSession = await SessionModel.findOne({
+        "user._id": user._id,
+      });
+    
+      if (currentUserSession?.lock) {
+        return res.render("error", {
+          error: "Have some user using this account",
+        });
+      }
+    
+      const userInfomation = {
+        _id: user._id,
+        username: user.username,
+      };
+    
+      const session = await SessionModel.create({
+        user: userInfomation,
+        lock: true,
+      });
+    
+      res.cookie("userId", session._id,{
+        httpOnly:true,
+        signed:true,
+        maxAge : 100*1000
+      })
+      res.redirect('/home');
        
     }
-    logout = async(req: Request, res: Response, next: NextFunction)=>{
+    logout = async(req: Request, res: Response)=>{
      
-            const {userId: sessionId } = req.signedCookies;
-            console.log("hellooooooo"+sessionId);
-            if (sessionId) {
-                await SessionModel.deleteOne({
-                    _id: sessionId
-                })
-                res.cookie("userId", "dangnhaproi", {
-                    maxAge: 0,
-                  });
-                return res.status(203).json("logout thanh cong");
-            }
-
-            return res.redirect("/auth");
+      console.log("Im logging out");
+      const { userId: sessionId } = req.signedCookies;
+      console.log(sessionId);
+      if (sessionId) {
+          await SessionModel.deleteOne({
+              _id: sessionId
+          })
+          return res.status(203).json({});
+      }
+      return res.status(200).json({
+          message: 'Can not logout'
+      });
           
     }
 }

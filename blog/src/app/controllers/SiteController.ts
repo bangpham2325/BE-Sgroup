@@ -1,5 +1,5 @@
 
-import Article from '../models/article'
+const Article = require('../models/article');
 import { NextFunction, Request, Response } from "express";
 class SiteController {
     

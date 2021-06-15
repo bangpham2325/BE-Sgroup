@@ -35,23 +35,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.authNotRequired = exports.authRequired = void 0;
-var user_1 = __importDefault(require("../app/models/user"));
+var SessionModel = require('../app/models/session');
+var UserModel = require('../app/models/user');
 var authRequired = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var user;
+    var sessionId, user;
     return __generator(this, function (_a) {
-        // const { user: sessionId } = req.signedCookies;
-        console.log(req.cookies + "  " + req.signedCookies.userId + " ne");
-        if (!req.signedCookies.userId) {
-            res.redirect('/auth/login');
+        sessionId = req.signedCookies.userId;
+        if (!sessionId) {
+            res.redirect("/auth/login");
             return [2 /*return*/];
         }
-        user = user_1.default.default.findOne({ id: req.cookies.userId });
+        user = UserModel.findOne({ id: req.cookies.userId });
         if (!user) {
+            console.log("dell log tiep nua");
             res.redirect('/auth/login');
             return [2 /*return*/];
         }
@@ -64,15 +62,13 @@ var authRequired = function (req, res, next) { return __awaiter(void 0, void 0, 
 }); };
 exports.authRequired = authRequired;
 var authNotRequired = function (req, res, next) {
-    // const { user: sessionId } = req.signedCookies;
-    if (req.signedCookies.userId) {
-        res.redirect('/home');
-        return;
-    }
+    var userId = req.signedCookies.userId;
+    if (userId)
+        return res.redirect("/home");
+    return next();
     //console.log(req.cookies+": "+req.signedCookies)
     //   if (!sessionId) {
     //     return res.redirect("/auth/login");
     //   }
-    return next();
 };
 exports.authNotRequired = authNotRequired;

@@ -9,5 +9,5 @@ router.post('/store',articleController.store)
 router.get('/:id/edit',articleController.edit)
 router.put('/:slug',articleController.update)
 router.get('/:slug',articleController.show)
-
+router.delete('/:slug',articleController.delete)
  export default router

@@ -8,8 +8,19 @@ block content
                         button hello Anh Phu  
                         p baitap kho qua di anh Phu oi
                         .row
-                            <a type="a" href="http://localhost:3000/articles/#{article.title}/edit" class="btn btn-primary">Update</>
-                            <a type="a" href="/create/#{article._id}/delete" class="btn btn-danger">Delete</a>
+                            <a type="a" href="http://localhost:3000/articles/#{article.title}/edit" class="btn btn-primary">Update</a>
+                            button.mx-2.btn.btn-danger(data-bs-toggle="modal" data-bs-target="#exampleModal") Delete
+                            #exampleModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
+                                .modal-dialog(role='document')
+                                    .modal-content
+                                    .modal-header
+                                        h5#exampleModalLabel.modal-title Modal title
+                                        button.close(type='button' data-dismiss='modal' aria-label='Close')
+                                        span(aria-hidden='true') &times;
+                                    .modal-body
+                                    .modal-footer
+                                        button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+                                        button.btn.btn-primary(type='button') Save changes
                 .col-lg-8
                     .card(style='width: 18rem;')
                         img.card-img-top(src=`${article.src}` alt='...')
@@ -17,5 +28,4 @@ block content
                         h5.card-title #{article.title}
                         p.card-text
                         | Some quick example text to build on the card title and make up the bulk of the card&apos;s content.
-                       
-                
+    

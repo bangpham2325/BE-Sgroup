@@ -4,11 +4,12 @@ var mongoose_1 = require("mongoose");
 var SessionSchema = new mongoose_1.Schema({
     user: {
         _id: String,
-        username: String
+        username: String,
     },
     lock: {
-        type: Boolean
-    }
+        type: Boolean,
+    },
+    expire_at: { type: Date, default: Date.now, expires: 300 },
 });
-var SessionModel = mongoose_1.model('sessions', SessionSchema);
-exports.default = SessionModel;
+var SessionModel = mongoose_1.model("sessions", SessionSchema);
+module.exports = SessionModel;

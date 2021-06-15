@@ -1,17 +1,24 @@
 import { NextFunction, Request, Response } from "express";
-import SessionModel from '../app/models/session';
-import UserModel from '../app/models/user';
+const SessionModel = require('../app/models/session');
+const UserModel = require('../app/models/user');
 export const authRequired =async (req: Request, res: Response, next: NextFunction) =>  {
    
         // const { user: sessionId } = req.signedCookies;
-        
-       console.log(req.cookies + "  "+ req.signedCookies.userId+" ne")
-        if(!req.signedCookies.userId){
-            res.redirect('/auth/login')
+        //console.log("dell log: "+req.signedCookies.userId)
+        const { userId: sessionId } = req.signedCookies;
+        if (!sessionId) {
+            res.redirect("/auth/login");
             return;
         }
-        const user = UserModel.default.findOne({id: req.cookies.userId});
+    
+        // if(!req.signedCookies.userId){
+        //     console.log("dell log tiep")
+        //     res.redirect('/auth/login')
+        //     return;
+        //}
+        const user = UserModel.findOne({id: req.cookies.userId});
         if(!user){
+            console.log("dell log tiep nua")
             res.redirect('/auth/login');
             return;
         }
@@ -25,18 +32,16 @@ export const authRequired =async (req: Request, res: Response, next: NextFunctio
 }
 export const authNotRequired =function(req: Request, res: Response, next: NextFunction) {
    
-    // const { user: sessionId } = req.signedCookies;
-   
-    if(req.signedCookies.userId){
-        res.redirect('/home')
-        return;
-    }
+    const { userId } = req.signedCookies;
+
+    if (userId) return res.redirect("/home");
+
+    return next();
     
      //console.log(req.cookies+": "+req.signedCookies)
 //   if (!sessionId) {
 //     return res.redirect("/auth/login");
 //   }
-  return next();
 
 
 }

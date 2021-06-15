@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var SessionModel = require('../models/session');
 var NewController = /** @class */ (function () {
     function NewController() {
     }

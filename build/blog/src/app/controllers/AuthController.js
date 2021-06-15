@@ -46,18 +46,26 @@ var AuthController = /** @class */ (function () {
             var user, currentUserSession, userInfomation, session;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, UserModel.default.findOne({ username: req.body.email })];
+                    case 0: return [4 /*yield*/, UserModel.findOne({
+                            username: req.body.email,
+                        })];
                     case 1:
                         user = _a.sent();
                         if (!user || !bcrypt.compareSync(req.body.password, user.password)) {
-                            res.send("Loi roi");
-                            return [2 /*return*/];
+                            return [2 /*return*/, res.render("error.pug", {
+                                    error: "Email and Password not found to login",
+                                })];
                         }
                         return [4 /*yield*/, SessionModel.findOne({
-                                'user._id': user._id,
+                                "user._id": user._id,
                             })];
                     case 2:
                         currentUserSession = _a.sent();
+                        if (currentUserSession === null || currentUserSession === void 0 ? void 0 : currentUserSession.lock) {
+                            return [2 /*return*/, res.render("error", {
+                                    error: "Have some user using this account",
+                                })];
+                        }
                         userInfomation = {
                             _id: user._id,
                             username: user.username,
@@ -68,8 +76,6 @@ var AuthController = /** @class */ (function () {
                             })];
                     case 3:
                         session = _a.sent();
-                        console.log(session);
-                        console.log(user);
                         res.cookie("userId", session._id, {
                             httpOnly: true,
                             signed: true,
@@ -80,31 +86,31 @@ var AuthController = /** @class */ (function () {
                 }
             });
         }); };
-        this.logout = function (req, res, next) { return __awaiter(_this, void 0, void 0, function () {
+        this.logout = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var sessionId;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        console.log("Im logging out");
                         sessionId = req.signedCookies.userId;
-                        console.log("hellooooooo" + sessionId);
+                        console.log(sessionId);
                         if (!sessionId) return [3 /*break*/, 2];
                         return [4 /*yield*/, SessionModel.deleteOne({
                                 _id: sessionId
                             })];
                     case 1:
                         _a.sent();
-                        res.cookie("userId", "dangnhaproi", {
-                            maxAge: 0,
-                        });
-                        return [2 /*return*/, res.status(203).json("logout thanh cong")];
-                    case 2: return [2 /*return*/, res.redirect("/auth")];
+                        return [2 /*return*/, res.status(203).json({})];
+                    case 2: return [2 /*return*/, res.status(200).json({
+                            message: 'Can not logout'
+                        })];
                 }
             });
         }); };
     }
     //[get]/login
     AuthController.prototype.login = function (req, res, next) {
-        console.log(req.cookies);
+        // console.log(req.cookies)
         res.render('login');
     };
     return AuthController;

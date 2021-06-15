@@ -1,5 +1,5 @@
 
-import SessionModel from '../models/session';
+const SessionModel = require('../models/session');
 import { NextFunction, Request, Response } from "express";
 class NewController {
     //[get]/news

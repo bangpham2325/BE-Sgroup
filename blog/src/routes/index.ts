@@ -4,11 +4,13 @@ import siteRouter from './site'
 import AuthRouter from './Auth'
 import express from 'express';
 const router = express.Router();
-//const authMidderware = require('../middleware/auth.middleware');
-import { authRequired, authNotRequired } from '../middleware/auth.middleware';
-router.use('/news',newsRouter);
-router.use('/auth',AuthRouter);
+const {
+    authRequired,
+    authNotRequired,
+  } = require("../middleware/auth.middleware");
+router.use('/news',authRequired,newsRouter);
+router.use('/auth',authNotRequired,AuthRouter);
 router.use('/articles',articleRouter);
-router.use('/',siteRouter);
+router.use('/',authRequired,siteRouter);
 
 export default router;

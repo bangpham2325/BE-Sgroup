@@ -1,5 +1,5 @@
 
-import Article from '../models/article';
+const Article = require('../models/article');
 import { NextFunction, Request, Response } from "express";
 class ArticleController {
     
@@ -34,15 +34,34 @@ class ArticleController {
         .then((article : any) =>res.render('edit', {
             article
         }))
-        .catch(next)
-        
-        
+        .catch(next) 
     }
     //[put]artircle/title
     update(req: Request, res: Response, next: NextFunction){
         Article.updateOne({title: req.params.slug},req.body)
         .then(()=>res.redirect("/home"))
         .catch(next)
+    }
+    delete = async(req: Request, res: Response)=>{
+        const { slug } = req.params;
+        const article = await Article.findOne({ slug });
+        console.log("dang delete ")
+        if (!article) {
+            return res.render("error.pug", {
+                error: `This article with title ${slug} is not exist`,
+            });
+        }
+
+        try {
+            await Article.deleteOne({ slug });
+        } catch (error) {
+            console.log(error);
+            return res.render("error.pug", {
+                error: `This article with title ${req.body.title} has been deleted`,
+            });
+        }
+
+        return res.redirect("/home");
     }
 }
 //tao 1 the hien cua newcontroller

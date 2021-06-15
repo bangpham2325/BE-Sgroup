@@ -1,9 +1,16 @@
 import express from "express";
 import AuthController from '../app/controllers/AuthController';
-import { authRequired, authNotRequired } from '../middleware/auth.middleware';
 const router = express.Router();
 //newController.index
-router.get('/login',AuthController.logout);
-router.post('/login',AuthController.getLogin);
-router.get('/',AuthController.login);
+const {
+    authRequired,
+    authNotRequired,
+  } = require("../middleware/auth.middleware");
+  const UserModel = require('../app/models/user');
+  import {validateLogin} from "../validator/login.validator"
+  
+
+router.post('/login',validateLogin,AuthController.getLogin);
+router.get('/login',AuthController.login);
+router.get('/logout',AuthController.logout);
 export default router

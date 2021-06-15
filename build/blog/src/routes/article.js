@@ -12,4 +12,5 @@ router.post('/store', ArticleController_1.default.store);
 router.get('/:id/edit', ArticleController_1.default.edit);
 router.put('/:slug', ArticleController_1.default.update);
 router.get('/:slug', ArticleController_1.default.show);
+router.delete('/:slug', ArticleController_1.default.delete);
 exports.default = router;
