@@ -43,17 +43,16 @@ class ArticleController {
         .catch(next)
     }
     delete = async(req: Request, res: Response)=>{
-        const { slug } = req.params;
-        const article = await Article.findOne({ slug });
-        console.log("dang delete ")
+        const { id } = req.params;
+        const article = await Article.findOne({ id });
         if (!article) {
             return res.render("error.pug", {
-                error: `This article with title ${slug} is not exist`,
+                error: `This article with title ${id} is not exist`,
             });
         }
 
         try {
-            await Article.deleteOne({ slug });
+            await Article.deleteOne({ id });
         } catch (error) {
             console.log(error);
             return res.render("error.pug", {
