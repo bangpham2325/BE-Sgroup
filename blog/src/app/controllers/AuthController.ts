@@ -1,6 +1,7 @@
 const UserModel = require('../models/user')
 const SessionModel = require('../models/session')
 const bcrypt = require('bcrypt')
+
 import { NextFunction, Request, Response } from "express";
 class AuthController {
     //[get]/login
@@ -50,18 +51,21 @@ class AuthController {
     }
     logout = async(req: Request, res: Response)=>{
      
-      // console.log("Im logging out");
-      // const { userId: sessionId } = req.signedCookies;
-      // console.log(sessionId);
-      // if (sessionId) {
-      //     await SessionModel.deleteOne({
-      //         _id: sessionId
-      //     })
-      //     return res.status(203).json({});
-      // }
-      // return res.status(200).json({
-      //     message: 'Can not logout'
-      // });
+      console.log("Im logging out");
+      
+      const { sessionId } = req.signedCookies;
+      console.log(sessionId);
+      
+      if (sessionId) {
+          await SessionModel.deleteOne({
+              _id: sessionId
+          })
+          return res.status(203).json({});
+      }
+      return res.status(400).json({
+          message: 'Can not logout'
+      });
+      
           
     }
 }

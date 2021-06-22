@@ -1,10 +1,13 @@
 import express from "express";
 import articleController from '../app/controllers/ArticleController';
 const router = express.Router();
-
+const multer = require("multer");
+const storage = multer.memoryStorage();
+const multerUploads = multer({ storage }).single("image");;
 
 //newController.index
 router.get('/create',articleController.create)
+router.post('/upload',multerUploads,articleController.upload)
 router.post('/store',articleController.store)
 router.get('/:id/edit',articleController.edit)
 router.put('/:slug',articleController.update)

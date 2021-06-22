@@ -92,7 +92,7 @@ var AuthController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         console.log("Im logging out");
-                        sessionId = req.signedCookies.userId;
+                        sessionId = req.signedCookies.sessionId;
                         console.log(sessionId);
                         if (!sessionId) return [3 /*break*/, 2];
                         return [4 /*yield*/, SessionModel.deleteOne({
@@ -101,7 +101,7 @@ var AuthController = /** @class */ (function () {
                     case 1:
                         _a.sent();
                         return [2 /*return*/, res.status(203).json({})];
-                    case 2: return [2 /*return*/, res.status(200).json({
+                    case 2: return [2 /*return*/, res.status(400).json({
                             message: 'Can not logout'
                         })];
                 }

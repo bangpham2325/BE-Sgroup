@@ -9,6 +9,7 @@ var routes_1 = __importDefault(require("./routes"));
 var database_1 = __importDefault(require("./config/database"));
 var method_override_1 = __importDefault(require("method-override"));
 var cookie_parser_1 = __importDefault(require("cookie-parser"));
+var PUBLIC_PATH = path_1.default.join(__dirname, 'public');
 //const authMidderware = require('./middleware/auth.middleware');
 var _a = require('./env'), PORT = _a.PORT, COOKIE_SECRET = _a.COOKIE_SECRET;
 //connect db
@@ -31,6 +32,11 @@ app.use(method_override_1.default(function (req, res) {
         delete req.body._method;
         return method;
     }
+}));
+app.use(express_1.default.static(PUBLIC_PATH, {
+    etag: true,
+    cacheControl: true,
+    maxAge: 8000
 }));
 app.use(cookie_parser_1.default("asasasas"));
 //app.use(methodOverride('_method'))

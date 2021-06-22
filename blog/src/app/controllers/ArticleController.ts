@@ -1,7 +1,23 @@
 
 const Article = require('../models/article');
 import { NextFunction, Request, Response } from "express";
+import { UploadStream } from "cloudinary";
+
+import { uploadToCloud } from "../../config/cloudinary";
+
 class ArticleController {
+    upload =(req: Request, res: Response, next: NextFunction)=>{
+        // (async (req: any) => {
+        //       if (!req.file) {
+        //         next(new Error('No file uploaded!'));
+        //         return;
+        //       }
+             
+        //       res.json({ secure_url: req.file.path });
+            
+        // })(req);
+        console.log('req.body :', req.body);
+    }
     
     //[get]/show
     show =(req: Request, res: Response, next: NextFunction)=>{

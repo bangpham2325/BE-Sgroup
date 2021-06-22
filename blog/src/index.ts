@@ -6,6 +6,7 @@ import db from './config/database';
 import methodOverride from 'method-override';
 import cookieParser from 'cookie-parser'
 
+const PUBLIC_PATH = path.join(__dirname, 'public');
 
 
 //const authMidderware = require('./middleware/auth.middleware');
@@ -31,6 +32,11 @@ app.use(methodOverride(function (req, res) {
     return method
   }
 }))
+app.use(express.static(PUBLIC_PATH, {
+  etag: true,
+  cacheControl: true,
+  maxAge: 8000
+}));
 app.use(cookieParser("asasasas"))
 //app.use(methodOverride('_method'))
 

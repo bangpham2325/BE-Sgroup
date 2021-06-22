@@ -7,7 +7,7 @@ const {
     authNotRequired,
   } = require("../middleware/auth.middleware");
   const UserModel = require('../app/models/user');
-  import {validateLogin} from "../validator/login.validator"
+import {validateLogin} from "../validator/login.validator"
   
 
 router.post('/login',validateLogin,AuthController.getLogin);

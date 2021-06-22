@@ -40,6 +40,16 @@ var Article = require('../models/article');
 var ArticleController = /** @class */ (function () {
     function ArticleController() {
         var _this = this;
+        this.upload = function (req, res, next) {
+            // (async (req: any) => {
+            //       if (!req.file) {
+            //         next(new Error('No file uploaded!'));
+            //         return;
+            //       }
+            //       res.json({ secure_url: req.file.path });
+            // })(req);
+            console.log('req.body :', req.body);
+        };
         //[get]/show
         this.show = function (req, res, next) {
             Article.findOne({ title: req.params.slug })
@@ -53,24 +63,23 @@ var ArticleController = /** @class */ (function () {
             res.render('create');
         };
         this.delete = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var slug, article, error_1;
+            var id, article, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        slug = req.params.slug;
-                        return [4 /*yield*/, Article.findOne({ slug: slug })];
+                        id = req.params.id;
+                        return [4 /*yield*/, Article.findOne({ id: id })];
                     case 1:
                         article = _a.sent();
-                        console.log("dang delete ");
                         if (!article) {
                             return [2 /*return*/, res.render("error.pug", {
-                                    error: "This article with title " + slug + " is not exist",
+                                    error: "This article with title " + id + " is not exist",
                                 })];
                         }
                         _a.label = 2;
                     case 2:
                         _a.trys.push([2, 4, , 5]);
-                        return [4 /*yield*/, Article.deleteOne({ slug: slug })];
+                        return [4 /*yield*/, Article.deleteOne({ id: id })];
                     case 3:
                         _a.sent();
                         return [3 /*break*/, 5];
