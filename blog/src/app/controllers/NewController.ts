@@ -20,4 +20,4 @@ class NewController {
 }
 
 //tao 1 the hien cua newcontroller
-export default new NewController;
+export default new NewController();

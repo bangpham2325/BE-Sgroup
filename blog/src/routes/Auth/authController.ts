@@ -1,5 +1,5 @@
-const UserModel = require('../models/user')
-const SessionModel = require('../models/session')
+const UserModel = require('../../app/models/user')
+const SessionModel = require('../../app/models/session')
 const bcrypt = require('bcrypt')
 
 import { NextFunction, Request, Response } from "express";
@@ -70,4 +70,4 @@ class AuthController {
     }
 }
 //tao 1 the hien cua newcontroller
-export default new AuthController;
+export default new AuthController();

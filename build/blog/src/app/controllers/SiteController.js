@@ -19,4 +19,4 @@ var SiteController = /** @class */ (function () {
     return SiteController;
 }());
 //tao 1 the hien cua newcontroller
-exports.default = new SiteController;
+exports.default = new SiteController();

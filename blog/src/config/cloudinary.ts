@@ -1,4 +1,4 @@
-var cloudinary = require('cloudinary').v2;
+const cloudinary = require('cloudinary').v2;
 
 cloudinary.config({
     cloud_name: "du5x0bmau",
@@ -7,14 +7,19 @@ cloudinary.config({
     secure: true,
   });
   
-  export function uploadToCloud(file: any) {
-    return new Promise((resolve: CallableFunction, reject: CallableFunction) => {
-      cloudinary.uploader.upload(file, (err: Error, image: any) => {
-        if (err) {
-          return reject(err, null);
-        } else {
-          return resolve(image.url, image.public_id);
-        }
-      });
-    });
-  }
+export function uploadSingle(file:any){
+  return new Promise(resolve => {
+      cloudinary.uploader.upload(file, {
+              folder: 'single'
+          })
+          .then((result : any) => {
+              if (result) {
+                  const fs = require('fs')
+                  fs.unlinkSync(file)
+                  resolve({
+                      url: result.secure_url
+                  })
+              }
+          })
+  })
+}

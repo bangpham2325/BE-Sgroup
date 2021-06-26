@@ -18,4 +18,4 @@ class SiteController {
     }
 }
 //tao 1 the hien cua newcontroller
-export default new SiteController;
+export default new SiteController();

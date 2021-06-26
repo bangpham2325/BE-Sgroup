@@ -15,4 +15,4 @@ var NewController = /** @class */ (function () {
     return NewController;
 }());
 //tao 1 the hien cua newcontroller
-exports.default = new NewController;
+exports.default = new NewController();

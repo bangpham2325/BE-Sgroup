@@ -39,7 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.authNotRequired = exports.authRequired = void 0;
 var SessionModel = require('../app/models/session');
 var UserModel = require('../app/models/user');
-var authRequired = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+exports.authRequired = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var sessionId, user;
     return __generator(this, function (_a) {
         sessionId = req.signedCookies.userId;
@@ -60,8 +60,7 @@ var authRequired = function (req, res, next) { return __awaiter(void 0, void 0, 
         return [2 /*return*/, next()];
     });
 }); };
-exports.authRequired = authRequired;
-var authNotRequired = function (req, res, next) {
+exports.authNotRequired = function (req, res, next) {
     var userId = req.signedCookies.userId;
     if (userId)
         return res.redirect("/home");
@@ -71,4 +70,3 @@ var authNotRequired = function (req, res, next) {
     //     return res.redirect("/auth/login");
     //   }
 };
-exports.authNotRequired = authNotRequired;

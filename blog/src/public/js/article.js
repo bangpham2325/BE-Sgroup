@@ -5,14 +5,11 @@ document.querySelector('#Article').addEventListener('submit', async function(eve
     const title = document.getElementById('title').value;
     const  content = document.getElementById('content').value;
     const image = document.getElementById("image");
-    
     data.append("image", image.files[0]);
     let postImageRes = await fetch("http://localhost:3000/articles/upload", {
         method: "POST",
         body: data,
       });
-    
-   
     let link="";
     if (!postImageRes.ok) {
         postImageRes.json().then((r) => alert(r.message));

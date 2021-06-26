@@ -1,28 +1,22 @@
 import { NextFunction, Request, Response } from "express";
 import { ILoginDto, LoginDto } from "../dto/login.dto";
-
+const REGEX_VALIDATE_EMAIL = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+const REGEX_VALIDATE_PASSWORD = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
 export function validateLogin(req: Request, res: Response, next: NextFunction) {
   let user: ILoginDto = LoginDto(req);
-  if (!validateEmail(user.email.trim())) {
+  if (!validateWithRegex(REGEX_VALIDATE_EMAIL,user.email.trim())) {
     return res.render("error.pug", {
       error: `Email not in right format`,
     });
   }
-  if (!validatePassword(user.password.trim())) {
+  if (!validateWithRegex(REGEX_VALIDATE_PASSWORD,user.password.trim())) {
     return res.render("error.pug", {
-      error: `Password not in right format. Password must contain at least 1 lowercase letter, 1 uppercase letter, 1 digit with length at least 6`,
+      error: `Password not in right format. Password must contain minimum eight characters, at least one letter and one number`,
     });
   }
   next();
 }
-
-function validateEmail(email: string): boolean {
-  const re =
-    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(email);
+function validateWithRegex(regex: RegExp, value: string){
+  return regex.test(value)
 }
 
-function validatePassword(password: string): boolean {
-  const re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/;
-  return re.test(password);
-}
