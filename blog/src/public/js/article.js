@@ -1,4 +1,22 @@
-console.log("Loading js create Article ")
+const reader = new FileReader();
+document.querySelector("#image").addEventListener("change", (event) => {
+	// Lấy thông tin tập tin được đăng tải
+	const files  = event.target.files;
+	// for(const file of files) {
+	// 	const {name, type, size, lastModified } = file;
+	// 	// Làm gì đó với các thông tin trên
+		
+    // }
+	// Đọc thông tin tập tin đã được đăng tải
+	reader.readAsDataURL(files[0])
+	
+	// Lắng nghe quá trình đọc tập tin hoàn thành
+	reader.addEventListener("load", (event) => {
+		// Lấy chuỗi Binary thông tin hình ảnh
+		const img = event.target.result;
+        document.querySelector("#preview_img").src=img;
+	})
+})
 document.querySelector('#Article').addEventListener('submit', async function(event) {
     event.preventDefault();
     const data = new FormData();
