@@ -14,6 +14,6 @@ var _a = require("../middleware/auth.middleware"), authRequired = _a.authRequire
 router.use('/news', authRequired, news_1.default);
 router.use('/auth', authNotRequired, authRouter_1.default);
 router.use('/articles', articleRouter_1.default);
-router.use('/upload', uploadRouter_1.default);
+router.use('/', uploadRouter_1.default);
 router.use('/', authRequired, site_1.default);
 exports.default = router;

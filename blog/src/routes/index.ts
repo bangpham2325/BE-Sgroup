@@ -12,7 +12,7 @@ const {
 router.use('/news',authRequired,newsRouter);
 router.use('/auth',authNotRequired,AuthRouter);
 router.use('/articles',articleRouter);
-router.use('/articles',UploadRouter);
+router.use('/',UploadRouter);
 router.use('/',authRequired,siteRouter);
 
 export default router;

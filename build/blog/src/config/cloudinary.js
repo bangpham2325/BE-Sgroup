@@ -11,7 +11,7 @@ cloudinary.config({
 function uploadSingle(file) {
     return new Promise(function (resolve) {
         cloudinary.uploader.upload(file, {
-            folder: 'single'
+            folder: 'uploads'
         })
             .then(function (result) {
             if (result) {

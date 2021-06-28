@@ -65,6 +65,6 @@ router.post('/upload', multerUploads, function (req, res) {
                     return [2 /*return*/];
             }
         });
-    }); });
+    }); })(req);
 });
 exports.default = router;

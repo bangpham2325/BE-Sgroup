@@ -10,7 +10,7 @@ cloudinary.config({
 export function uploadSingle(file:any){
   return new Promise(resolve => {
       cloudinary.uploader.upload(file, {
-              folder: 'single'
+              folder: 'uploads'
           })
           .then((result : any) => {
               if (result) {

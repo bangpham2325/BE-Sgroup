@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,57 +35,43 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-console.log("Loading js create Article ");
-document.querySelector('#Article').addEventListener('submit', function (event) {
+// document.querySelector("#image").addEventListener("change", (event) => {
+//   // Lấy thông tin tập tin được đăng tải
+//   const reader = new FileReader();
+// 	const files  = event.target.files;
+// 	// Đọc thông tin tập tin đã được đăng tải
+// 	reader.readAsDataURL(files[0])
+// 	// Lắng nghe quá trình đọc tập tin hoàn thành
+// 	reader.addEventListener("load", (event) => {
+// 		// Lấy chuỗi Binary thông tin hình ảnh
+// 		const img = event.target.result;
+//         document.querySelector("#preview_img").src=img;
+// 	})
+// })
+document.getElementById('image').addEventListener('change', function (e) {
     return __awaiter(this, void 0, void 0, function () {
-        var data, title, content, image, postImageRes, link, upload, response;
+        var previewImg, form, response, src;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    event.preventDefault();
-                    data = new FormData();
-                    title = document.getElementById('title').value;
-                    content = document.getElementById('content').value;
-                    image = document.getElementById("image");
-                    data.append("image", image.files[0]);
-                    return [4 /*yield*/, fetch("http://localhost:3000/articles/upload", {
-                            method: "POST",
-                            body: data,
+                    previewImg = document.getElementById('previewImg');
+                    form = new FormData();
+                    form.append('image', this.files[0]);
+                    return [4 /*yield*/, fetch('http://localhost:3000/upload', {
+                            method: 'POST',
+                            body: form
                         })];
                 case 1:
-                    postImageRes = _a.sent();
-                    link = "";
-                    if (!!postImageRes.ok) return [3 /*break*/, 2];
-                    postImageRes.json().then(function (r) { return alert(r.message); });
-                    return [2 /*return*/];
-                case 2: return [4 /*yield*/, postImageRes.json()];
-                case 3:
-                    upload = _a.sent();
-                    link = upload.link;
-                    _a.label = 4;
-                case 4: return [4 /*yield*/, fetch('http://localhost:3000/articles/create', {
-                        method: 'POST',
-                        headers: {
-                            'Accept': 'application/json, text/plain, */*',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            title: title,
-                            content: content,
-                            link: link
-                        })
-                    })];
-                case 5:
                     response = _a.sent();
-                    if (!response.ok) {
-                        res.json().then(function (r) { return alert(r.message); });
-                    }
-                    else {
-                        alert("Success");
-                        location.href = "/home";
-                        return [2 /*return*/];
-                    }
+                    if (!!response.ok) return [3 /*break*/, 2];
+                    alert('Upload failed');
+                    return [3 /*break*/, 4];
+                case 2: return [4 /*yield*/, response.json()];
+                case 3:
+                    src = (_a.sent()).src;
+                    previewImg.src = src;
                     return [2 /*return*/];
+                case 4: return [2 /*return*/];
             }
         });
     });
