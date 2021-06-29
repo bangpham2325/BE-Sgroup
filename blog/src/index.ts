@@ -5,6 +5,7 @@ import router from './routes';
 import db from './config/database';
 import methodOverride from 'method-override';
 import cookieParser from 'cookie-parser'
+import bodyParser from 'body-parser'
 
 const PUBLIC_PATH = path.join(__dirname, 'public');
 
@@ -24,6 +25,7 @@ app.set('view engine', 'pug')
 app.get('/user/:id', function (req, res, next) {
   res.send('USER')
 })
+
 app.use(methodOverride(function (req, res) {
   if (req.body && typeof req.body === 'object' && '_method' in req.body) {
     // look in urlencoded POST bodies and delete it
@@ -39,7 +41,8 @@ app.use(express.static(PUBLIC_PATH, {
 }));
 app.use(cookieParser("asasasas"))
 //app.use(methodOverride('_method'))
-
+app.use(bodyParser.json({limit: '10mb'}));
+app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
 app.use('/', router);
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:3000`)

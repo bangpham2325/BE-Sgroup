@@ -13,17 +13,19 @@ interface MulterRequest extends Request {
 }
 import { uploadSingle } from "../../config/cloudinary";
 class UploadController {
-    uploadSingle = async (req: MulterRequest, res:Response)=>{
+    uploadSingle = async (req: Request, res:Response)=>{
         //req.file.path chính là đường dẫn của file khi upload bằng multer
-            const upload = await uploadSingle(req.file.path).then((result:any) => {
-                let imageDetails = {
-                    imageName: req.body.imageName || '',
-                    cloudImage: result.url,
-                    imageId: result.id
-                }
+            // const upload = await uploadSingle(req.file.path).then((result:any) => {
+            //     let imageDetails = {
+            //         imageName: req.body.imageName || '',
+            //         cloudImage: result.url,
+            //         imageId: result.id
+            //     }
+            // })
+            console.log(req.file)
+            return res.status(200).json({
+                src: "path.secure_url"
             })
-            
-            res.json(req.file)
             
     }
 }

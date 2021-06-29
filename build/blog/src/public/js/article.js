@@ -48,31 +48,32 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 //         document.querySelector("#preview_img").src=img;
 // 	})
 // })
-document.getElementById('image').addEventListener('change', function (e) {
-    return __awaiter(this, void 0, void 0, function () {
-        var previewImg, form, response, src;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    previewImg = document.getElementById('previewImg');
-                    form = new FormData();
-                    form.append('image', this.files[0]);
-                    return [4 /*yield*/, fetch('http://localhost:3000/upload', {
-                            method: 'POST',
-                            body: form
-                        })];
-                case 1:
-                    response = _a.sent();
-                    if (!!response.ok) return [3 /*break*/, 2];
-                    alert('Upload failed');
-                    return [3 /*break*/, 4];
-                case 2: return [4 /*yield*/, response.json()];
-                case 3:
-                    src = (_a.sent()).src;
-                    previewImg.src = src;
-                    return [2 /*return*/];
-                case 4: return [2 /*return*/];
-            }
-        });
+document.getElementById('image').addEventListener('change', function (e) { return __awaiter(void 0, void 0, void 0, function () {
+    var previewImg, form, image, response, src;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                previewImg = document.getElementById('previewImg');
+                form = new FormData();
+                image = document.getElementById("image");
+                form.append("image", image.files[0]);
+                //form.append('image', image.files[0])
+                console.log(form);
+                return [4 /*yield*/, fetch('http://localhost:3000/upload', {
+                        method: 'post',
+                        body: form
+                    }).catch(function (error) { return console.log(error); })];
+            case 1:
+                response = _a.sent();
+                if (!!response.ok) return [3 /*break*/, 2];
+                alert('Upload failed');
+                return [3 /*break*/, 4];
+            case 2: return [4 /*yield*/, response.json()];
+            case 3:
+                src = (_a.sent()).src;
+                previewImg.src = src;
+                return [2 /*return*/];
+            case 4: return [2 /*return*/];
+        }
     });
-});
+}); });

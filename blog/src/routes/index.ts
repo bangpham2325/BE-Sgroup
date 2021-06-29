@@ -5,6 +5,7 @@ import AuthRouter from './Auth/authRouter'
 import UploadRouter from './uploadFile/uploadRouter'
 import express from 'express';
 const router = express.Router();
+
 const {
     authRequired,
     authNotRequired,
@@ -12,7 +13,7 @@ const {
 router.use('/news',authRequired,newsRouter);
 router.use('/auth',authNotRequired,AuthRouter);
 router.use('/articles',articleRouter);
-router.use('/',UploadRouter);
+router.use('/upload',UploadRouter);
 router.use('/',authRequired,siteRouter);
 
 export default router;

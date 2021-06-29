@@ -36,26 +36,23 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var cloudinary_1 = require("../../config/cloudinary");
 var UploadController = /** @class */ (function () {
     function UploadController() {
         var _this = this;
         this.uploadSingle = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var upload;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, cloudinary_1.uploadSingle(req.file.path).then(function (result) {
-                            var imageDetails = {
-                                imageName: req.body.imageName || '',
-                                cloudImage: result.url,
-                                imageId: result.id
-                            };
-                        })];
-                    case 1:
-                        upload = _a.sent();
-                        res.json(req.file);
-                        return [2 /*return*/];
-                }
+                //req.file.path chính là đường dẫn của file khi upload bằng multer
+                // const upload = await uploadSingle(req.file.path).then((result:any) => {
+                //     let imageDetails = {
+                //         imageName: req.body.imageName || '',
+                //         cloudImage: result.url,
+                //         imageId: result.id
+                //     }
+                // })
+                console.log(req.file);
+                return [2 /*return*/, res.status(200).json({
+                        src: "path.secure_url"
+                    })];
             });
         }); };
     }

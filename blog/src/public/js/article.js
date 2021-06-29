@@ -14,7 +14,7 @@
 //         document.querySelector("#preview_img").src=img;
 // 	})
 // })
-document.getElementById('image').addEventListener('change', async function(e) {
+document.getElementById('image').addEventListener('change', async (e) => {
   const previewImg = document.getElementById('previewImg');
   const form = new FormData();
   const image = document.getElementById("image");
@@ -22,9 +22,10 @@ document.getElementById('image').addEventListener('change', async function(e) {
   //form.append('image', image.files[0])
 console.log(form)
   const response = await fetch('http://localhost:3000/upload', {
-      method: 'POST',
+      method: 'post',
       body: form
-  })
+  }).catch(error => console.log(error));
+  
 
 
   if (!response.ok) {

@@ -2,7 +2,6 @@ extends ./main.pug
 
 block content
     form#Article(action="/articles", method="post" enctype="multipart/form-data")
-        input#method(type="hidden" name="_method" value="POST")
         .form-group
             label.form-label Title
             input#title.form-control(type='text' name='title' aria-describedby='emailHelp')

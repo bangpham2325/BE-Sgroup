@@ -9,6 +9,7 @@ var routes_1 = __importDefault(require("./routes"));
 var database_1 = __importDefault(require("./config/database"));
 var method_override_1 = __importDefault(require("method-override"));
 var cookie_parser_1 = __importDefault(require("cookie-parser"));
+var body_parser_1 = __importDefault(require("body-parser"));
 var PUBLIC_PATH = path_1.default.join(__dirname, 'public');
 //const authMidderware = require('./middleware/auth.middleware');
 var _a = require('./env'), PORT = _a.PORT, COOKIE_SECRET = _a.COOKIE_SECRET;
@@ -40,6 +41,8 @@ app.use(express_1.default.static(PUBLIC_PATH, {
 }));
 app.use(cookie_parser_1.default("asasasas"));
 //app.use(methodOverride('_method'))
+app.use(body_parser_1.default.json({ limit: '10mb' }));
+app.use(body_parser_1.default.urlencoded({ limit: '10mb', extended: true }));
 app.use('/', routes_1.default);
 app.listen(port, function () {
     console.log("Example app listening at http://localhost:3000");
