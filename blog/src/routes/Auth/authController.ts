@@ -1,8 +1,8 @@
-const UserModel = require('../../app/models/user')
-const SessionModel = require('../../app/models/session')
+import UserModel from '../../app/models/user'
+import SessionModel from '../../app/models/session'
 const bcrypt = require('bcrypt')
-
-import { NextFunction, Request, Response } from "express";
+import express from "express"
+import  {NextFunction, Request, Response } from "express";
 class AuthController {
     //[get]/login
     login(req: Request, res: Response, next: NextFunction){

@@ -1,23 +1,9 @@
 
-const Article = require('../../app/models/article');
+import Article from '../../app/models/article';
 import { NextFunction, Request, Response } from "express";
-import { UploadStream } from "cloudinary";
-
-import { uploadSingle } from "../../config/cloudinary";
 
 class ArticleController {
-    upload = (req: Request, res: Response, next: NextFunction)=>{
-        // (async (req: any) => {
-        //       if (!req.file) {
-        //         next(new Error('No file uploaded!'));
-        //         return;
-        //       }
-             
-        //       res.json({ secure_url: req.file.path });
-            
-        // })(req);
-        //console.log('req.body :', req.file);
-    }
+   
     
     //[get]/show
     getDetailBySlugPage = async (req: Request, res: Response, next: NextFunction)=>{
@@ -39,14 +25,23 @@ class ArticleController {
         
     }
     //post/articles/store
-    storeArticle = (req: Request, res: Response, next: NextFunction)=>{
-       const formData = req.body;
-       const article = new Article(formData);
-       article.save()
-        .then(()=>res.redirect('/home'))
-        .catch((error:any) =>{
-
-       })
+    storeArticle = async (req: Request, res: Response, next: NextFunction)=>{
+       let creatSuccess = true;
+       const articleExister = await Article.findOne({title :req.body.title})
+   
+       if(articleExister){
+            return res.render('error')
+       }
+       try{
+           await Article.create(req.body)
+       } catch(err){
+        console.log(err)
+        creatSuccess = false;
+       }
+       return creatSuccess ? res.redirect('/home') :res.render('error',{
+        error: `This article with title ${req.body.title} has been existed`
+    })
+       
     }
      //get/article/id/edit
     editArticleById = async (req: Request, res: Response, next: NextFunction)=>{

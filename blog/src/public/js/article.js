@@ -1,38 +1,52 @@
-'use strict'
-// document.querySelector("#image").addEventListener("change", (event) => {
-//   // Lấy thông tin tập tin được đăng tải
-//   const reader = new FileReader();
-// 	const files  = event.target.files;
-	
-// 	// Đọc thông tin tập tin đã được đăng tải
-// 	reader.readAsDataURL(files[0])
-	
-// 	// Lắng nghe quá trình đọc tập tin hoàn thành
-// 	reader.addEventListener("load", (event) => {
-// 		// Lấy chuỗi Binary thông tin hình ảnh
-// 		const img = event.target.result;
-//         document.querySelector("#preview_img").src=img;
-// 	})
-// })
-document.getElementById('image').addEventListener('change', async (e) => {
-  const previewImg = document.getElementById('previewImg');
+
+const imageFile = document.getElementById("image");
+imageFile.addEventListener('change', async (e) => {
   const form = new FormData();
-  const image = document.getElementById("image");
-    form.append("image", image.files[0]);
-  //form.append('image', image.files[0])
-console.log(form)
-  const response = await fetch('http://localhost:3000/upload', {
+  
+    form.append("image", imageFile.files[0]);
+  try{
+    const response = await fetch('http://localhost:3000/upload', {
       method: 'post',
       body: form
-  }).catch(error => console.log(error));
-  
-
-
+    });
   if (!response.ok) {
       alert('Upload failed')
   } else {
       const {src} = await response.json();
-      previewImg.src = src;
+      document.querySelector("#preview_img").src = await src;
+      console.log(src)
       return;
   }
+  }catch(err){
+    console.log("loi roi"+err)
+    return
+  }
+  
+})
+document.getElementById("Article").addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const title = document.getElementById('title').value;
+  const content = document.getElementById('content').value;
+  const src = document.getElementById('preview_img').src;
+  
+      const response = await fetch('http://localhost:3000/articles/store', {
+          method: 'POST',
+          headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+              title,
+              content,
+              src
+          }),
+      });
+      console.log(response);
+      if (!response.ok) {
+          alert('Create fail!!!');
+      } else {
+          location.href = '/home';
+          alert('Register success')
+          return;
+      }
 })

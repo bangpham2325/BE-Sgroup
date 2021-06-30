@@ -1,27 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.uploadSingle = void 0;
-var cloudinary = require('cloudinary').v2;
-cloudinary.config({
-    cloud_name: "du5x0bmau",
-    api_key: "837869445163677",
-    api_secret: "dulA88W9xEtQNBMSkE5PVKqIc88",
-    secure: true,
+exports.cloudinary = void 0;
+var cloudinary_1 = require("cloudinary");
+var env_1 = require("../env");
+cloudinary_1.v2.config({
+    cloud_name: env_1.CLOUDINARY_NAME,
+    api_key: env_1.CLOUDINARY_API_KEY,
+    api_secret: env_1.CLOUDINARY_API_SECRECT,
+    secure: true
 });
-function uploadSingle(file) {
-    return new Promise(function (resolve) {
-        cloudinary.uploader.upload(file, {
-            folder: 'uploads'
-        })
-            .then(function (result) {
-            if (result) {
-                var fs = require('fs');
-                fs.unlinkSync(file);
-                resolve({
-                    url: result.secure_url
-                });
-            }
-        });
-    });
-}
-exports.uploadSingle = uploadSingle;
+exports.cloudinary = cloudinary_1.v2.uploader;

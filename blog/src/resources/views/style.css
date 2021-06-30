@@ -13,3 +13,8 @@
 h1{
     color: rgb(219, 14, 14);
 }
+#preview_img{
+    width: 500px;
+    height: 500px;
+    border: 0px;
+}

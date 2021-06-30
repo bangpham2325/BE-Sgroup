@@ -1,25 +1,10 @@
-const cloudinary = require('cloudinary').v2;
-
-cloudinary.config({
-    cloud_name: "du5x0bmau",
-    api_key: "837869445163677",
-    api_secret: "dulA88W9xEtQNBMSkE5PVKqIc88",
-    secure: true,
+import {v2} from 'cloudinary';
+import { CLOUDINARY_NAME , CLOUDINARY_API_KEY , CLOUDINARY_API_SECRECT } from '../env'
+v2.config({
+  cloud_name: CLOUDINARY_NAME,
+  api_key:  CLOUDINARY_API_KEY,
+  api_secret: CLOUDINARY_API_SECRECT ,
+  secure: true
   });
-  
-export function uploadSingle(file:any){
-  return new Promise(resolve => {
-      cloudinary.uploader.upload(file, {
-              folder: 'uploads'
-          })
-          .then((result : any) => {
-              if (result) {
-                  const fs = require('fs')
-                  fs.unlinkSync(file)
-                  resolve({
-                      url: result.secure_url
-                  })
-              }
-          })
-  })
-}
+
+  export const cloudinary = v2.uploader;

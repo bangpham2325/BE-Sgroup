@@ -41,8 +41,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose_1 = __importDefault(require("mongoose"));
 var bcrypt_1 = __importDefault(require("bcrypt"));
-var ArticleModel = require('../app/models/article');
-var UserModel = require('../app/models/user');
+var article_1 = __importDefault(require("../app/models/article"));
+var user_1 = __importDefault(require("../app/models/user"));
+var env_1 = require("../env");
 exports.default = (function () { return __awaiter(void 0, void 0, void 0, function () {
     var DEFAULT_PWD, error_1;
     return __generator(this, function (_a) {
@@ -50,17 +51,17 @@ exports.default = (function () { return __awaiter(void 0, void 0, void 0, functi
             case 0:
                 _a.trys.push([0, 6, , 7]);
                 DEFAULT_PWD = bcrypt_1.default.hashSync('Aa123456', 10);
-                return [4 /*yield*/, mongoose_1.default.connect('mongodb://localhost:27017/Article', {
+                return [4 /*yield*/, mongoose_1.default.connect(env_1.DB_CONNECTION, {
                         useNewUrlParser: true,
                         useUnifiedTopology: true
                     })];
             case 1:
                 _a.sent();
                 console.log('connect to mongodb');
-                return [4 /*yield*/, UserModel.deleteMany()];
+                return [4 /*yield*/, user_1.default.deleteMany()];
             case 2:
                 _a.sent();
-                return [4 /*yield*/, UserModel.insertMany([
+                return [4 /*yield*/, user_1.default.insertMany([
                         {
                             id: 12,
                             username: 'bangpham@gmail.com',
@@ -74,10 +75,10 @@ exports.default = (function () { return __awaiter(void 0, void 0, void 0, functi
                     ])];
             case 3:
                 _a.sent();
-                return [4 /*yield*/, ArticleModel.deleteMany()];
+                return [4 /*yield*/, article_1.default.deleteMany()];
             case 4:
                 _a.sent();
-                return [4 /*yield*/, ArticleModel.insertMany([
+                return [4 /*yield*/, article_1.default.insertMany([
                         {
                             id: 1,
                             title: "Jennie",

@@ -35,27 +35,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var Article = require('../../app/models/article');
+var article_1 = __importDefault(require("../../app/models/article"));
 var ArticleController = /** @class */ (function () {
     function ArticleController() {
         var _this = this;
-        this.upload = function (req, res, next) {
-            // (async (req: any) => {
-            //       if (!req.file) {
-            //         next(new Error('No file uploaded!'));
-            //         return;
-            //       }
-            //       res.json({ secure_url: req.file.path });
-            // })(req);
-            //console.log('req.body :', req.file);
-        };
         //[get]/show
         this.getDetailBySlugPage = function (req, res, next) { return __awaiter(_this, void 0, void 0, function () {
             var article;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, Article.findOne({ title: req.params.slug })];
+                    case 0: return [4 /*yield*/, article_1.default.findOne({ title: req.params.slug })];
                     case 1:
                         article = _a.sent();
                         if (!article) {
@@ -74,20 +67,43 @@ var ArticleController = /** @class */ (function () {
             return res.render('create');
         };
         //post/articles/store
-        this.storeArticle = function (req, res, next) {
-            var formData = req.body;
-            var article = new Article(formData);
-            article.save()
-                .then(function () { return res.redirect('/home'); })
-                .catch(function (error) {
+        this.storeArticle = function (req, res, next) { return __awaiter(_this, void 0, void 0, function () {
+            var creatSuccess, articleExister, err_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        creatSuccess = true;
+                        return [4 /*yield*/, article_1.default.findOne({ title: req.body.title })];
+                    case 1:
+                        articleExister = _a.sent();
+                        if (articleExister) {
+                            return [2 /*return*/, res.render('error')];
+                        }
+                        console.log("2" + article_1.default + "  " + req.body.title);
+                        _a.label = 2;
+                    case 2:
+                        _a.trys.push([2, 4, , 5]);
+                        return [4 /*yield*/, article_1.default.create(req.body)];
+                    case 3:
+                        _a.sent();
+                        return [3 /*break*/, 5];
+                    case 4:
+                        err_1 = _a.sent();
+                        console.log(err_1);
+                        creatSuccess = false;
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/, creatSuccess ? res.redirect('/home') : res.render('error', {
+                            error: "This article with title " + req.body.title + " has been existed"
+                        })];
+                }
             });
-        };
+        }); };
         //get/article/id/edit
         this.editArticleById = function (req, res, next) { return __awaiter(_this, void 0, void 0, function () {
             var article;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, Article.findOne({ title: req.params.id })];
+                    case 0: return [4 /*yield*/, article_1.default.findOne({ title: req.params.id })];
                     case 1:
                         article = _a.sent();
                         if (!article) {
@@ -106,7 +122,7 @@ var ArticleController = /** @class */ (function () {
             var article, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, Article.findOne({ title: req.params.slug })];
+                    case 0: return [4 /*yield*/, article_1.default.findOne({ title: req.params.slug })];
                     case 1:
                         article = _a.sent();
                         if (!article) {
@@ -117,7 +133,7 @@ var ArticleController = /** @class */ (function () {
                         _a.label = 2;
                     case 2:
                         _a.trys.push([2, 4, , 5]);
-                        return [4 /*yield*/, Article.updateOne({ title: req.params.slug }, req.body)];
+                        return [4 /*yield*/, article_1.default.updateOne({ title: req.params.slug }, req.body)];
                     case 3:
                         _a.sent();
                         return [3 /*break*/, 5];
@@ -137,7 +153,7 @@ var ArticleController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         id = req.params.id;
-                        return [4 /*yield*/, Article.findOne({ id: id })];
+                        return [4 /*yield*/, article_1.default.findOne({ id: id })];
                     case 1:
                         article = _a.sent();
                         if (!article) {
@@ -148,7 +164,7 @@ var ArticleController = /** @class */ (function () {
                         _a.label = 2;
                     case 2:
                         _a.trys.push([2, 4, , 5]);
-                        return [4 /*yield*/, Article.deleteOne({ id: id })];
+                        return [4 /*yield*/, article_1.default.deleteOne({ id: id })];
                     case 3:
                         _a.sent();
                         return [3 /*break*/, 5];

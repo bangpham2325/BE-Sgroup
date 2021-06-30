@@ -8,4 +8,4 @@ var ArticleSchema = new mongoose_1.Schema({
     content: String
 });
 var ArticleModel = mongoose_1.model('articles', ArticleSchema);
-module.exports = ArticleModel;
+exports.default = ArticleModel;

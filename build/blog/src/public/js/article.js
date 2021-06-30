@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,45 +35,77 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-// document.querySelector("#image").addEventListener("change", (event) => {
-//   // Lấy thông tin tập tin được đăng tải
-//   const reader = new FileReader();
-// 	const files  = event.target.files;
-// 	// Đọc thông tin tập tin đã được đăng tải
-// 	reader.readAsDataURL(files[0])
-// 	// Lắng nghe quá trình đọc tập tin hoàn thành
-// 	reader.addEventListener("load", (event) => {
-// 		// Lấy chuỗi Binary thông tin hình ảnh
-// 		const img = event.target.result;
-//         document.querySelector("#preview_img").src=img;
-// 	})
-// })
-document.getElementById('image').addEventListener('change', function (e) { return __awaiter(void 0, void 0, void 0, function () {
-    var previewImg, form, image, response, src;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+var imageFile = document.getElementById("image");
+imageFile.addEventListener('change', function (e) { return __awaiter(void 0, void 0, void 0, function () {
+    var form, response, src, _a, err_1;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0:
-                previewImg = document.getElementById('previewImg');
                 form = new FormData();
-                image = document.getElementById("image");
-                form.append("image", image.files[0]);
-                //form.append('image', image.files[0])
-                console.log(form);
+                form.append("image", imageFile.files[0]);
+                _b.label = 1;
+            case 1:
+                _b.trys.push([1, 7, , 8]);
                 return [4 /*yield*/, fetch('http://localhost:3000/upload', {
                         method: 'post',
                         body: form
-                    }).catch(function (error) { return console.log(error); })];
+                    })];
+            case 2:
+                response = _b.sent();
+                if (!!response.ok) return [3 /*break*/, 3];
+                alert('Upload failed');
+                return [3 /*break*/, 6];
+            case 3: return [4 /*yield*/, response.json()];
+            case 4:
+                src = (_b.sent()).src;
+                _a = document.querySelector("#preview_img");
+                return [4 /*yield*/, src];
+            case 5:
+                _a.src = _b.sent();
+                console.log(src);
+                return [2 /*return*/];
+            case 6: return [3 /*break*/, 8];
+            case 7:
+                err_1 = _b.sent();
+                console.log("loi roi" + err_1);
+                return [2 /*return*/];
+            case 8: return [2 /*return*/];
+        }
+    });
+}); });
+document.getElementById("Article").addEventListener('submit', function (event) { return __awaiter(void 0, void 0, void 0, function () {
+    var title, content, src, response;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                event.preventDefault();
+                title = document.getElementById('title').value;
+                content = document.getElementById('content').value;
+                src = document.getElementById('preview_img').src;
+                return [4 /*yield*/, fetch('http://localhost:3000/articles/store', {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json, text/plain, */*',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            title: title,
+                            content: content,
+                            src: src
+                        }),
+                    })];
             case 1:
                 response = _a.sent();
-                if (!!response.ok) return [3 /*break*/, 2];
-                alert('Upload failed');
-                return [3 /*break*/, 4];
-            case 2: return [4 /*yield*/, response.json()];
-            case 3:
-                src = (_a.sent()).src;
-                previewImg.src = src;
+                console.log(response);
+                if (!response.ok) {
+                    alert('Create fail!!!');
+                }
+                else {
+                    location.href = '/home';
+                    alert('Register success');
+                    return [2 /*return*/];
+                }
                 return [2 /*return*/];
-            case 4: return [2 /*return*/];
         }
     });
 }); });

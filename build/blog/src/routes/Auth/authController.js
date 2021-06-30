@@ -35,9 +35,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var UserModel = require('../../app/models/user');
-var SessionModel = require('../../app/models/session');
+var user_1 = __importDefault(require("../../app/models/user"));
+var session_1 = __importDefault(require("../../app/models/session"));
 var bcrypt = require('bcrypt');
 var AuthController = /** @class */ (function () {
     function AuthController() {
@@ -46,7 +49,7 @@ var AuthController = /** @class */ (function () {
             var user, currentUserSession, userInfomation, session;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, UserModel.findOne({
+                    case 0: return [4 /*yield*/, user_1.default.findOne({
                             username: req.body.email,
                         })];
                     case 1:
@@ -56,7 +59,7 @@ var AuthController = /** @class */ (function () {
                                     error: "Email and Password not found to login",
                                 })];
                         }
-                        return [4 /*yield*/, SessionModel.findOne({
+                        return [4 /*yield*/, session_1.default.findOne({
                                 "user._id": user._id,
                             })];
                     case 2:
@@ -70,7 +73,7 @@ var AuthController = /** @class */ (function () {
                             _id: user._id,
                             username: user.username,
                         };
-                        return [4 /*yield*/, SessionModel.create({
+                        return [4 /*yield*/, session_1.default.create({
                                 user: userInfomation,
                                 lock: true,
                             })];
@@ -95,7 +98,7 @@ var AuthController = /** @class */ (function () {
                         sessionId = req.signedCookies.sessionId;
                         console.log(sessionId);
                         if (!sessionId) return [3 /*break*/, 2];
-                        return [4 /*yield*/, SessionModel.deleteOne({
+                        return [4 /*yield*/, session_1.default.deleteOne({
                                 _id: sessionId
                             })];
                     case 1:

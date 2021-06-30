@@ -13,4 +13,4 @@ const SessionSchema = new Schema({
 
 const SessionModel = model("sessions", SessionSchema);
 
-module.exports = SessionModel;
+export default SessionModel;

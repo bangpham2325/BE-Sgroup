@@ -7,7 +7,7 @@ var news_1 = __importDefault(require("./news"));
 var articleRouter_1 = __importDefault(require("./article/articleRouter"));
 var site_1 = __importDefault(require("./site"));
 var authRouter_1 = __importDefault(require("./Auth/authRouter"));
-var uploadRouter_1 = __importDefault(require("./uploadFile/uploadRouter"));
+var uploadRouter_1 = __importDefault(require("./uploadFile/multer/uploadRouter"));
 var express_1 = __importDefault(require("express"));
 var router = express_1.default.Router();
 var _a = require("../middleware/auth.middleware"), authRequired = _a.authRequired, authNotRequired = _a.authNotRequired;

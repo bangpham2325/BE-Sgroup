@@ -12,4 +12,4 @@ var SessionSchema = new mongoose_1.Schema({
     expire_at: { type: Date, default: Date.now, expires: 300 },
 });
 var SessionModel = mongoose_1.model("sessions", SessionSchema);
-module.exports = SessionModel;
+exports.default = SessionModel;

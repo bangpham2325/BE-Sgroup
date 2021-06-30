@@ -11,7 +11,7 @@ const PUBLIC_PATH = path.join(__dirname, 'public');
 
 
 //const authMidderware = require('./middleware/auth.middleware');
-const {PORT, COOKIE_SECRET} = require('./env');
+import { PORT, COOKIE_SECRET } from './env'
 //connect db
 db();
 const app = express()
@@ -39,11 +39,11 @@ app.use(express.static(PUBLIC_PATH, {
   cacheControl: true,
   maxAge: 8000
 }));
-app.use(cookieParser("asasasas"))
+app.use(cookieParser(COOKIE_SECRET))
 //app.use(methodOverride('_method'))
 app.use(bodyParser.json({limit: '10mb'}));
 app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
 app.use('/', router);
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:3000`)
+app.listen(PORT, () => {
+  console.log(`Example app listening at ${PORT}`)
 })

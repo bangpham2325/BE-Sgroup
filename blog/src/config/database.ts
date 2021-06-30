@@ -1,12 +1,13 @@
 
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
-const ArticleModel = require('../app/models/article');
-const UserModel = require('../app/models/user');
+import ArticleModel from '../app/models/article';
+import UserModel from '../app/models/user';
+import { DB_CONNECTION } from '../env'
 export default async () =>{
     try {
         const DEFAULT_PWD = bcrypt.hashSync('Aa123456', 10);
-        await mongoose.connect('mongodb://localhost:27017/Article', {
+        await mongoose.connect(DB_CONNECTION, {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });

@@ -35,40 +35,34 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.authNotRequired = exports.authRequired = void 0;
-var user_1 = __importDefault(require("../app/models/user"));
-exports.authRequired = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var sessionId, user;
-    return __generator(this, function (_a) {
-        sessionId = req.signedCookies.userId;
-        if (!sessionId) {
-            res.redirect("/auth/login");
-            return [2 /*return*/];
-        }
-        user = user_1.default.findOne({ id: req.cookies.userId });
-        if (!user) {
-            console.log("dell log tiep nua");
-            res.redirect('/auth/login');
-            return [2 /*return*/];
-        }
-        //console.log(req.cookies+": "+req.signedCookies)
-        //   if (!sessionId) {
-        //     return res.redirect("/auth/login");
-        //   }
-        return [2 /*return*/, next()];
-    });
-}); };
-exports.authNotRequired = function (req, res, next) {
-    var userId = req.signedCookies.userId;
-    if (userId)
-        return res.redirect("/home");
-    return next();
-    //console.log(req.cookies+": "+req.signedCookies)
-    //   if (!sessionId) {
-    //     return res.redirect("/auth/login");
-    //   }
-};
+exports.serviceUpload = void 0;
+var cloudinary_1 = require("../../../config/cloudinary");
+var fs_1 = require("fs");
+var Service = /** @class */ (function () {
+    function Service() {
+        var _this = this;
+        this.uploadSingle = function (file) { return __awaiter(_this, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (file == null) {
+                            throw new Error('Null File');
+                        }
+                        console.log("heloo brus" + file.path);
+                        return [4 /*yield*/, cloudinary_1.cloudinary.upload(file.path, {
+                                folder: 'uploads'
+                            })];
+                    case 1:
+                        response = _a.sent();
+                        console.log("file ne" + response);
+                        fs_1.unlinkSync(file.path);
+                        return [2 /*return*/, response.secure_url];
+                }
+            });
+        }); };
+    }
+    return Service;
+}());
+exports.serviceUpload = new Service();

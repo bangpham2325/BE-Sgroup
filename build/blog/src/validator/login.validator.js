@@ -22,3 +22,12 @@ exports.validateLogin = validateLogin;
 function validateWithRegex(regex, value) {
     return regex.test(value);
 }
+// import  {check} from 'express-validator';
+// import {validationResult} from 'express-validator';
+// export function validateLogin(){
+//   return [ 
+//     check('user.email', 'Invalid does not Empty').not().isEmpty(),
+//     check('user.email', 'Invalid email').isEmail(),
+//     check('user.password', 'password more than 6 degits').isLength({ min: 6 })
+//   ]; 
+// }

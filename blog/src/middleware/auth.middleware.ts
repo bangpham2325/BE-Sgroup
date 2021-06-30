@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-const SessionModel = require('../app/models/session');
-const UserModel = require('../app/models/user');
+import SessionModel from '../app/models/session';
+import UserModel from '../app/models/user';
 export const authRequired =async (req: Request, res: Response, next: NextFunction) =>  {
    
         // const { user: sessionId } = req.signedCookies;
